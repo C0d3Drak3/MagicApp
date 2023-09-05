@@ -1,5 +1,6 @@
 import Navbar from "./navbar/navbar"
 import ContainerBd from "./container/containerBd"
+import ContainerApi from "./container/containerApi"
 
 export default function Home() {
   return (
@@ -12,13 +13,10 @@ export default function Home() {
       </header>
       
       <main>
-        
+        <ContainerApi/>
         <ContainerBd/>
       </main>
 
-      <footer>
-        {/*  */}
-      </footer>
     </div>
     
   )

@@ -11,7 +11,7 @@ const styles = {
   menuItem: 'text-white hover:text-blue-300',
 };
 
-function Navbar() {
+export default function Navbar() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -43,9 +43,9 @@ function Navbar() {
             </button>
           </div>
           <ul className={`${styles.menuList} ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
-            <li><a href="#" className={styles.menuItem}>Inicio</a></li>
-            <li><a href="#" className={styles.menuItem}>Servicios</a></li>
-            <li><a href="#" className={styles.menuItem}>Reservas</a></li>
+            <li><a href="#" className={styles.menuItem}>Buscar</a></li>
+            <li><a href="#" className={styles.menuItem}>Agregar</a></li>
+            <li><a href="#" className={styles.menuItem}>Sobre nosotros</a></li>
             <li><a href="#" className={styles.menuItem}>Contacto</a></li>
           </ul>
         </div>
@@ -54,4 +54,3 @@ function Navbar() {
   );
 }
 
-export default Navbar;
