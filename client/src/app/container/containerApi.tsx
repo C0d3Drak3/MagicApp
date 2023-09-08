@@ -1,5 +1,5 @@
 "use client";
-
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from '../types/card';
@@ -32,13 +32,19 @@ export default function cardGrid()  {
   return (
     <div className={styles.gridContainer}>
       {cards.map((card) => (
-        <div key={card.id} className={styles.cardContainer}>
-          <img src={card.imageUrl} alt={card.name} className={styles.cardImage} />
-          <div className={styles.cardContent}>
-            <h2 className={styles.cardTitle}>{card.name}</h2>
-            
-          </div>
-        </div>
+        
+          
+            <div key={card.id} className={styles.cardContainer}>
+              <Link key={card.id} href={`/detail/${card.id}`}>
+                <img src={card.imageUrl} alt={card.name} className={styles.cardImage} />
+              </Link>
+              <div className={styles.cardContent}>
+                <h2 className={styles.cardTitle}>{card.name}</h2>
+                
+              </div>
+            </div>
+          
+       
       ))}
     </div>
   );
