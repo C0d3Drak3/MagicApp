@@ -35,7 +35,7 @@ export default function cardGrid()  {
         
           
             <div key={card.id} className={styles.cardContainer}>
-              <Link key={card.id} href={`/detail/${card.id}`}>
+              <Link key={card.id} href={`/detail?id=${card.id}`}>
                 <img src={card.imageUrl} alt={card.name} className={styles.cardImage} />
               </Link>
               <div className={styles.cardContent}>

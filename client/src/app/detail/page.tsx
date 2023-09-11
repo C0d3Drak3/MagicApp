@@ -1,12 +1,15 @@
-import { useRouter } from 'next/router';
+"use client";
+
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Card from '../types/card';
 
 const CardDetail: React.FC = () => {
-  const router = useRouter();
-  const { id } = router.query;
+
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id')
   const [card, setCard] = useState<Card | null>(null);
 
   useEffect(() => {
@@ -15,7 +18,7 @@ const CardDetail: React.FC = () => {
         try {
           const response = await axios.get(`https://api.magicthegathering.io/v1/cards/${id}`);
           setCard(response.data.card);
-          console.log("La carta se fetcheo bien");
+          console.log("Card fetched successfully");
         } catch (error) {
           console.error('Error fetching card details:', error);
         }
@@ -40,7 +43,7 @@ const CardDetail: React.FC = () => {
           <h1 className={styles.cardTitle}>{card.name}</h1>
           {/* Mostrar más detalles de la tarjeta aquí */}
           <Link href="/">
-            <a className={styles.backButton}>Volver a la página de inicio</a>
+            <button className={styles.backButton}>Volver a la página de inicio</button>
           </Link>
         </>
       ) : (
