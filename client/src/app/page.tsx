@@ -1,7 +1,6 @@
 import Navbar from "./navbar/navbar"
 import ContainerBd from "./container/containerBd"
 import ContainerApi from "./container/containerApi"
-import CardDetail from "./detail/page"
 
 export default function Home() {
   return (
@@ -22,4 +21,3 @@ export default function Home() {
     
   )
 }
-
