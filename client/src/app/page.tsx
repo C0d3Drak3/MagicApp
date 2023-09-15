@@ -1,11 +1,11 @@
 import Navbar from "./navbar/navbar"
-import ContainerBd from "./container/containerBd"
 import ContainerApi from "./container/containerApi"
+import FilterMenu from "./filters/filters";
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     
-      <div>
+    <div>
       <header>
         <nav>
           <Navbar/>
@@ -13,11 +13,12 @@ export default function Home() {
       </header>
       
       <main>
+        <FilterMenu/>
         <ContainerApi/>
-        <ContainerBd/>
       </main>
-
     </div>
     
   )
 }
+
+export default Home;

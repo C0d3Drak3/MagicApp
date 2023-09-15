@@ -15,7 +15,7 @@ const styles = {
   menuItem: 'text-white hover:text-blue-300',
 };
 
-export default function Navbar() {
+const NavBar: React.FC = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -95,3 +95,4 @@ export default function Navbar() {
   );
 }
 
+export default NavBar;

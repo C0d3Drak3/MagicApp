@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from '../types/card';
 
-export default function cardGrid()  {
+const CardContainer: React.FC = () => {
   const [cards, setCards] = useState<Card[]>([]);
 
   useEffect(() => {
@@ -50,4 +50,4 @@ export default function cardGrid()  {
   );
 };
 
-
+export default CardContainer;
