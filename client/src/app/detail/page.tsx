@@ -16,9 +16,10 @@ const CardDetail: React.FC = () => {
     const fetchCard = async () => {
       if (id) {
         try {
-          const response = await axios.get(`https://api.magicthegathering.io/v1/cards/${id}`);
-          setCard(response.data.card);
+          const response = await axios.get(`https://api.scryfall.com/cards/${id}`);
+          setCard(response.data);
           console.log("Card fetched successfully");
+          console.log(response.data);
         } catch (error) {
           console.error('Error fetching card details:', error);
         }
@@ -39,9 +40,26 @@ const CardDetail: React.FC = () => {
     <div className={styles.container}>
       {card ? (
         <>
-          <img src={card.imageUrl} alt={card.name} className={styles.cardImage} />
+          <div className="flex">
+          {card.card_faces ? (
+            card.card_faces.map((face, index) => (
+              <img
+                key={index}
+                src={face.image_uris?.normal}
+                alt={card.name}
+                className={styles.cardImage}
+              />
+            ))
+          ) : (
+            <img
+              src={card.image_uris?.normal}
+              alt={card.name}
+              className={styles.cardImage}
+            />
+          )}
+        </div>
           <h1 className={styles.cardTitle}>{card.name}</h1>
-          {/* Mostrar más detalles de la tarjeta aquí */}
+          {/* Mostrar más detalles de la carta aquí */}
           <Link href="/">
             <button className={styles.backButton}>Volver a la página de inicio</button>
           </Link>

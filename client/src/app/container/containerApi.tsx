@@ -10,8 +10,9 @@ const CardContainer: React.FC = () => {
   useEffect(() => {
     const fetchCards = async () => {
       try {
-        const response = await axios.get('https://api.magicthegathering.io/v1/cards');
-        setCards(response.data.cards);
+        const response = await axios.get('https://api.scryfall.com/cards/search?order=cmc&q=c%3Ared+pow%3D3');
+        setCards(response.data.data);
+        console.log(response.data.data)
       } catch (error) {
         console.error('Error fetching cards:', error);
       }
@@ -32,19 +33,19 @@ const CardContainer: React.FC = () => {
   return (
     <div className={styles.gridContainer}>
       {cards.map((card) => (
-        
-          
             <div key={card.id} className={styles.cardContainer}>
               <Link key={card.id} href={`/detail?id=${card.id}`}>
-                <img src={card.imageUrl} alt={card.name} className={styles.cardImage} />
+                <img
+                  src={card.card_faces && card.card_faces[0]?.image_uris?.normal ? card.card_faces[0].image_uris.normal : card.image_uris?.normal}
+                  alt={card.name}
+                  className={styles.cardImage}
+                />
               </Link>
               <div className={styles.cardContent}>
                 <h2 className={styles.cardTitle}>{card.name}</h2>
                 
               </div>
             </div>
-          
-       
       ))}
     </div>
   );
