@@ -11,7 +11,7 @@ const FilterMenu: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-100 p-4">
+    <div className="bg-[#726379] p-4">
       <h2 className="text-lg font-semibold mb-2">Filtrar por:</h2>
       <ul className="space-y-2">
         <li>
