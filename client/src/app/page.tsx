@@ -1,6 +1,7 @@
 import Navbar from "./navbar/navbar"
 import ContainerApi from "./container/containerApi"
 import FilterMenu from "./filters/filters";
+import Filter1 from "./filters/filtersTuk";
 
 const Home: React.FC = () => {
   return (
@@ -13,7 +14,7 @@ const Home: React.FC = () => {
       </header>
       
       <main>
-        <FilterMenu/>
+        <Filter1/>
         <ContainerApi/>
       </main>
     </div>
