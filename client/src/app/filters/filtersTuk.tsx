@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import SetData from "../types/sets";
 
 const Filter1 = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,36 +15,35 @@ const Filter1 = () => {
     grey: false,
     creature: false,
     land: false,
-    leather: false,
-    cotton: false,
-    fabric: false,
-    crocodile: false,
-    wool: false,
-    large: false,
-    medium: false,
-    small: false,
-    mini: false,
+    enchantment: false,
+    planewalker: false,
+    artifact: false,
+    basic: false,
+    instant: false,
+    sorcery: false,
+    plane: false,
+    battle: false,
   });
 
-  const {
-    white,
-    blue,
-    red,
-    green,
-    black,
-    grey,
-    creature,
-    land,
-    leather,
-    cotton,
-    fabric,
-    crocodile,
-    wool,
-    large,
-    medium,
-    small,
-    mini,
-  } = check;
+  const { white, blue, red, green, black, grey } = check;
+
+  const [sets, setSets] = useState<SetData[]>([]); // Almacena los datos de los sets.
+  const [selectedSet, setSelectedSet] = useState(""); // Almacena el set seleccionado.
+
+  useEffect(() => {
+    axios
+      .get("https://api.scryfall.com/sets")
+      .then((response) => {
+        const setList: SetData[] = response.data.data.map((set: any) => ({
+          name: set.name,
+          code: set.code,
+        }));
+        setSets(setList);
+      })
+      .catch((error) => {
+        console.error("Error al obtener los sets:", error);
+      });
+  }, []);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCheck({
@@ -61,22 +62,31 @@ const Filter1 = () => {
       black: false,
       grey: false,
       creature: false,
+      planewalker: false,
+      artifact: false,
+      basic: false,
+      instant: false,
+      sorcery: false,
+      plane: false,
+      battle: false,
       land: false,
-      leather: false,
-      cotton: false,
-      fabric: false,
-      crocodile: false,
-      wool: false,
-      large: false,
-      medium: false,
-      small: false,
-      mini: false,
+      enchantment: false,
     });
+    console.log(selectedSet);
+    console.log(check);
   };
 
   const CardTypes = [
-    { id: "Creature", label: "Creature" },
-    { id: "Land", label: "Land" },
+    { id: "artifact", label: "Artifact" },
+    { id: "creature", label: "Creature" },
+    { id: "planewalker", label: "Planewalker" },
+    { id: "basic", label: "Basic" },
+    { id: "land", label: "Land" },
+    { id: "enchantment", label: "Enchantment" },
+    { id: "instant", label: "Instant" },
+    { id: "sorcery", label: "Sorcery" },
+    { id: "plane", label: "Plane" },
+    { id: "battle", label: "Battle" },
   ];
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -463,116 +473,8 @@ const Filter1 = () => {
                 </div>
               </div>
             ))}
-            {/*
-            <div className=" flex space-x-2 md:justify-center md:items-center items-center justify-start">
-              <input
-                className="w-4 h-4 mr-2"
-                type="checkbox"
-                id="Leather"
-                name="leather"
-                value="Leather"
-                checked={leather}
-                onChange={changeHandler}
-              />
-              <div className=" inline-block">
-                <div className=" flex space-x-6 justify-center items-center">
-                  <label
-                    className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                    htmlFor="Leather"
-                  >
-                    Leather
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className=" flex justify-center items-center">
-              <input
-                className="w-4 h-4 mr-2"
-                type="checkbox"
-                id="Cotton"
-                name="cotton"
-                value="Cotton"
-                checked={cotton}
-                onChange={changeHandler}
-              />
-              <div className=" inline-block">
-                <div className=" flex space-x-6 justify-center items-center">
-                  <label
-                    className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                    htmlFor="Cotton"
-                  >
-                    Cotton
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className=" flex space-x-2 md:justify-center md:items-center items-center justify-end">
-              <input
-                className="w-4 h-4 mr-2"
-                type="checkbox"
-                id="Fabric"
-                name="fabric"
-                value="Fabric"
-                checked={fabric}
-                onChange={changeHandler}
-              />
-              <div className=" inline-block">
-                <div className=" flex space-x-6 justify-center items-center">
-                  <label
-                    className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                    htmlFor="Fabric"
-                  >
-                    Fabric
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className=" flex space-x-2 md:justify-center md:items-center items-center justify-start">
-              <input
-                className="w-4 h-4 mr-2"
-                type="checkbox"
-                id="Crocodile"
-                name="crocodile"
-                value="Crocodile"
-                checked={crocodile}
-                onChange={changeHandler}
-              />
-              <div className=" inline-block">
-                <div className=" flex space-x-6 justify-center items-center">
-                  <label
-                    className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                    htmlFor="Crocodile"
-                  >
-                    Crocodile
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className=" flex justify-center items-center">
-              <input
-                className="w-4 h-4 mr-2"
-                type="checkbox"
-                id="Wool"
-                name="wool"
-                value="Wool"
-                checked={wool}
-                onChange={changeHandler}
-              />
-              <div className=" inline-block">
-                <div className=" flex space-x-6 justify-center items-center">
-                  <label
-                    className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                    htmlFor="Wool"
-                  >
-                    Wool
-                  </label>
-                </div>
-              </div>
-            </div>
-            */}
           </div>
         </div>
-
         <hr className=" bg-gray-200 lg:w-6/12 w-full md:my-10 my-8" />
         {/* Sets Section */}
         <div>
@@ -582,93 +484,24 @@ const Filter1 = () => {
             </p>
           </div>
           <div className=" md:flex md:space-x-6 mt-8 grid grid-cols-3 gap-y-8 flex-wrap">
-            <div className=" flex md:justify-center md:items-center items-center justify-start ">
-              <input
-                className="w-4 h-4 mr-2"
-                type="checkbox"
-                id="Large"
-                name="large"
-                value="Large"
-                checked={large}
-                onChange={changeHandler}
-              />
-              <div className=" inline-block">
-                <div className=" flex space-x-6 justify-center items-center">
-                  <label
-                    className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                    htmlFor="Large"
-                  >
-                    Large
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className=" flex justify-center items-center ">
-              <input
-                className="w-4 h-4 mr-2"
-                type="checkbox"
-                id="Medium"
-                name="medium"
-                value="Medium"
-                checked={medium}
-                onChange={changeHandler}
-              />
-              <div className=" inline-block">
-                <div className=" flex space-x-6 justify-center items-center">
-                  <label
-                    className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                    htmlFor="Medium"
-                  >
-                    Medium
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className=" flex md:justify-center md:items-center items-center justify-end ">
-              <input
-                className="w-4 h-4 mr-2"
-                type="checkbox"
-                id="Small"
-                name="small"
-                value="Small"
-                checked={small}
-                onChange={changeHandler}
-              />
-              <div className=" inline-block">
-                <div className=" flex space-x-6 justify-center items-center">
-                  <label
-                    className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                    htmlFor="Small"
-                  >
-                    Small
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className=" flex md:justify-center md:items-center items-center justify-start ">
-              <input
-                className="w-4 h-4 mr-2"
-                type="checkbox"
-                id="Mini"
-                name="mini"
-                value="Mini"
-                checked={mini}
-                onChange={changeHandler}
-              />
-              <div className=" inline-block">
-                <div className=" flex space-x-6 justify-center items-center">
-                  <label
-                    className=" mr-2 text-sm leading-3 font-normal text-gray-600"
-                    htmlFor="Mini"
-                  >
-                    Mini
-                  </label>
-                </div>
-              </div>
+            <div className="flex space-x-2 md:justify-center md:items-center items-center justify-start">
+              <select
+                id="CardSet"
+                name="cardSet"
+                value={selectedSet}
+                onChange={(e) => setSelectedSet(e.target.value)}
+                className="py-2 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
+              >
+                <option value="">Select a set</option>
+                {sets.map((set) => (
+                  <option key={set.code} value={set.code}>
+                    {set.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
-
         <hr className=" bg-gray-200 lg:w-6/12 w-full md:my-10 my-8" />
 
         {/* To add Section */}
