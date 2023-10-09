@@ -2,6 +2,12 @@
 type CardFace = {
   object: string;
   name: string;
+  mana_cost: string;
+  type_line: string;
+  oracle_text: string;
+  flavor_text: string;
+  power: string;
+  toughness: string;
   // Agregar propiedades necesarias para las caras de la carta de ser necesario
   image_uris: {
     small: string;
@@ -31,6 +37,10 @@ interface Card {
   colors: string[];
   color_identity: string[];
   keywords: string[];
+  oracle_text: string;
+  flavor_text: string;
+  power: string;
+  toughness: string;
   card_faces?: CardFace[];
   // Otras propiedades relevantes de la carta
 }
