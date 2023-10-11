@@ -4,23 +4,42 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../types/card";
 
-const CardContainer: React.FC = () => {
+const CardContainer: React.FC<{ searchTerm: string }> = ({ searchTerm }) => {
   const [cards, setCards] = useState<Card[]>([]);
 
+  const fetchDragons = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.scryfall.com/cards/search?order=cmc&dir=desc&q=name%3Ddragon+type%3Dcreature"
+      );
+      setCards(response.data.data);
+      console.log(response.data.data);
+    } catch (error) {
+      console.error("Error fetching cards:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.scryfall.com/cards/search?order=cmc&dir=desc&q=name%3Ddragon+type%3Dcreature"
-        );
-        setCards(response.data.data);
-        console.log(response.data.data);
-      } catch (error) {
-        console.error("Error fetching cards:", error);
-      }
-    };
-    fetchCards();
+    fetchDragons(); // Carga las cartas de dragones al inicio
   }, []);
+
+  useEffect(() => {
+    if (searchTerm) {
+      // Si hay un término de búsqueda, realiza una nueva búsqueda
+      const searchCards = async () => {
+        try {
+          const response = await axios.get(
+            `https://api.scryfall.com/cards/search?order=cmc&dir=desc&q=${searchTerm}`
+          );
+          setCards(response.data.data);
+          console.log(response.data.data);
+        } catch (error) {
+          console.error("Error fetching cards:", error);
+        }
+      };
+      searchCards(); // Realiza una búsqueda basada en searchTerm
+    }
+  }, [searchTerm]);
 
   const styles = {
     gridContainer:

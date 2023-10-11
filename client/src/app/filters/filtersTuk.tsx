@@ -3,9 +3,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SetData from "../types/sets";
 
-const Filter1 = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [showFilters, setShowfilters] = useState(true);
+type Filter1Props = {
+  onSearch: (searchTerm: string) => void;
+};
+type Filter1State = {
+  searchTerm: string;
+  // Resto de tus estados y tipos
+};
+
+const Filter1: React.FC<Filter1Props> = ({ onSearch }) => {
+  const [state, setState] = useState<Filter1State>({
+    searchTerm: "",
+    // Resto de tus estados y valores por defecto
+  });
+  const { searchTerm } = state;
+
+  const [showFilters, setShowfilters] = useState(false);
   const [check, setCheck] = useState({
     white: false,
     blue: false,
@@ -90,12 +103,16 @@ const Filter1 = () => {
   ];
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
+    setState((prevState) => ({
+      ...prevState,
+      searchTerm: e.target.value,
+    }));
   };
   const performSearch = () => {
-    // Aquí puedes manejar la búsqueda y enviar los datos al componente de búsqueda en tiempo real
-    console.log("Realizar búsqueda con:", searchTerm);
+    console.log("Realizar búsqueda con:", state.searchTerm);
+    onSearch(state.searchTerm);
   };
+
   const styles = {
     search: "flex items-center space-x-2 rounded-full bg-white p-2",
     searchIcon: "w-6 h-6 text-blue-500",
