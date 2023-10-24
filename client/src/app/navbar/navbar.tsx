@@ -1,20 +1,19 @@
 "use client";
-import React, { useState } from 'react';
-
+import React, { useState } from "react";
 
 const styles = {
-  navbar: 'bg-[#110F02] p-4',
-  container: 'container mx-auto flex items-center justify-between',
-  logo: 'text-white text-2xl font-semibold',
-  search: 'flex items-center space-x-2 rounded-full bg-white p-2',
-  searchIcon: 'w-6 h-6 text-blue-500',
-  searchInput: 'border-none focus:outline-none bg-transparent',
-  menu: 'flex items-center justify-between',
-  menuButton: 'text-white focus:outline-none md:hidden',
-  menuIcon: 'w-6 h-6',
-  menuList: 'md:flex md:space-x-4',
-  menuItem: 'text-white hover:text-blue-300',
-  gif: 'w-480 h-480 block ',
+  navbar: "bg-[#110F02] p-4",
+  container: "container mx-auto flex items-center justify-between",
+  logo: "text-white text-2xl font-semibold",
+  search: "flex items-center space-x-2 rounded-full bg-white p-2",
+  searchIcon: "w-6 h-6 text-blue-500",
+  searchInput: "border-none focus:outline-none bg-transparent",
+  menu: "flex items-center justify-between",
+  menuButton: "text-white focus:outline-none md:hidden",
+  menuIcon: "w-6 h-6",
+  menuList: "md:flex md:space-x-4",
+  menuItem: "text-white hover:text-blue-300",
+  gif: "w-480 h-480 block ",
 };
 
 const NavBar: React.FC = () => {
@@ -26,9 +25,9 @@ const NavBar: React.FC = () => {
 
   return (
     <nav className={styles.navbar}>
-      <div className={styles.container}>         
+      <div className={styles.container}>
         <div className={styles.logo}>MagicApp</div>
-        
+
         <div className={styles.menu}>
           <div className={styles.menuButton}>
             <button onClick={toggleMobileMenu} className={styles.menuButton}>
@@ -49,16 +48,31 @@ const NavBar: React.FC = () => {
               </svg>
             </button>
           </div>
-          <ul className={`${styles.menuList} ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
-            <li><a href="#" className={styles.menuItem}>Buscar</a></li>
-            <li><a href="#" className={styles.menuItem}>Agregar</a></li>
-            <li><a href="#" className={styles.menuItem}>Sobre nosotros</a></li>
-            <li><a href="#" className={styles.menuItem}>Contacto</a></li>
+          <ul
+            className={`${styles.menuList} ${
+              isMobileMenuOpen ? "block" : "hidden"
+            }`}
+          >
+            <li>
+              <a href="#" className={styles.menuItem}>
+                Agregar
+              </a>
+            </li>
+            <li>
+              <a href="#" className={styles.menuItem}>
+                Sobre nosotros
+              </a>
+            </li>
+            <li>
+              <a href="#" className={styles.menuItem}>
+                Contacto
+              </a>
+            </li>
           </ul>
-        </div>     
+        </div>
       </div>
     </nav>
   );
-}
+};
 
 export default NavBar;
